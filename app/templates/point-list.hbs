@@ -1,0 +1,14 @@
+<div class="row" ...attributes>
+  {{#each @points as |point|}}
+    <div class="col-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{point.name}}</h5>
+          <div class="card-text">Hello</div>
+          <a href="#" class="btn btn-primary">Edit</a>
+          <a href="#" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>

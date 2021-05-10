@@ -1,0 +1,22 @@
+{{page-title "Points"}}
+{{#mapbox-gl class='map-container' initOptions=(hash pitch=30) mapLoaded=(action this.updateMarkers) as |map|}}
+  {{map.on 'click' (action 'mapClicked')}}
+  {{map.image 'pin' '/assets/images/pin.svg' width=48 height=48}}
+  {{#map.source options=(hash type='geojson' data=(mut this.markers)) as |source|}}
+    {{source.layer layer=(hash
+      type='symbol'
+      layout=(hash icon-image='pin' text-field=(array 'get' 'name')
+      text-offset= (array 0 1.25) text-anchor='top')
+      paint=(hash text-color='blue')
+    )}}
+  {{/map.source}}
+
+  {{#if this.open}}
+    {{#map.popup onClose=(action 'closePopup') lngLat=(array this.coordinates.lng this.coordinates.lat)}}
+      <PointForm @savePoint={{if this.pointData.id this.updatePoint this.savePoint}}  @pointData={{this.pointData}} />
+    {{/map.popup}}
+  {{/if}}
+
+{{/mapbox-gl}}
+<PointList @points={{@model}} @editPoint={{this.editPoint}} @deletePoint={{this.deletePoint}} />
+{{outlet}}
