@@ -1,17 +1,5 @@
 <div class="row mt-3" ...attributes>
   {{#each @points as |point|}}
-    <div class="col-3 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Name: {{point.name}}</h5>
-          <div class="card-text">Latitude: {{point.latitude}}</div>
-          <div class="card-text">Longitude: {{point.longitude}}</div>
-          <div class="float-end">
-            <a {{action @editPoint point}} class="btn btn-primary">Edit</a>
-            <a {{action @deletePoint point.id}} class="btn btn-danger">Delete</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Point @point={{point}} @editPoint={{@editPoint}} @deletePoint={{@deletePoint}} />
   {{/each}}
 </div>

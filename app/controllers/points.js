@@ -5,12 +5,12 @@ import { inject as service } from '@ember/service';
 
 export default class PointsController extends Controller {
   @service store;
-
+  @tracked allPoints = this.model;
   @tracked markers = {
     type: 'FeatureCollection',
     features: []
   }
-
+  @tracked searchText;
   @tracked open = false;
   @tracked pointData = {id: null, name: '', longitude: '', latitude: ''};
   @tracked model;
@@ -31,7 +31,7 @@ export default class PointsController extends Controller {
   @action
   async updateMarkers() {
     let features = [];
-    await this.model.map(point => {  
+    await this.allPoints.map(point => {  
       features.pushObject({
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [ point.longitude, point.latitude ] },
@@ -89,7 +89,12 @@ export default class PointsController extends Controller {
       } catch(error) {
         console.log(error);
       }
-
+    }
+  @action
+    async searchPoint(event) {
+      this.searchText = event.target.value
+      this.allPoints = await this.store.query('point', { name: this.searchText });
+      this.updateMarkers();
     }
 
 }
