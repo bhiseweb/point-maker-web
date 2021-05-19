@@ -19,5 +19,5 @@
 
 {{/mapbox-gl}}
 <Input class="form-control" type="text" value={{this.searchText}} oninput={{action "searchPoint"}} placeholder="Search point here" />
-<PointList @points={{this.allPoints}} @editPoint={{this.editPoint}} @deletePoint={{this.deletePoint}} />
+<PointList @points={{this.allPoints}} @editPoint={{action 'editPoint'}} @deletePoint={{action 'deletePoint'}} />
 {{outlet}}

@@ -6,6 +6,10 @@ module.exports = function (environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
+    clientId: process.env.CLIENTID,
+    clientSecret: process.env.CLIENTSECRET,
+    api: 'http://localhost:3000', //'https://aqueous-meadow-88620.herokuapp.com'
+    namespace:'api/v1',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
