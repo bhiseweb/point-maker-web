@@ -1,13 +1,18 @@
 {{page-title "Points"}}
-{{#mapbox-gl class='map-container' initOptions=(hash pitch=30) mapLoaded=(action this.updateMarkers) as |map|}}
+{{#mapbox-gl class='map-container' initOptions=(hash pitch=30) mapLoaded=(action this.loadMarkers) as |map|}}
   {{map.on 'click' (action 'mapClicked')}}
-  {{map.image 'pin' '/assets/images/pin.svg' width=48 height=48}}
+  {{!-- {{map.image 'pin' '/assets/images/pin.svg' width=48 height=48}} --}}
   {{#map.source options=(hash type='geojson' data=(mut this.markers)) as |source|}}
     {{source.layer layer=(hash
+      id='point'
+      type='circle'
+      paint=(hash circle-color='red' circle-radius=12)
+    )}}
+    {{source.layer layer=(hash
       type='symbol'
-      layout=(hash icon-image='pin' text-field=(array 'get' 'name')
-      text-offset= (array 0 1.25) text-anchor='top')
-      paint=(hash text-color='blue')
+      layout=(hash text-field=(array 'get' 'name')
+      text-offset= (array 0 0.5) text-anchor='top')
+      paint=(hash text-color="red")
     )}}
   {{/map.source}}
 
