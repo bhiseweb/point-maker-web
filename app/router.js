@@ -7,12 +7,14 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('points', { path: '/' });
+  
   this.route('login');
   this.route('register');
   this.route('reset-password');
   this.route('forgot-password');
-  this.route('authenticated', { path: '' }, () => {
-    
-  })
+  // this.route('points', { path: '/map' });
+  this.route('points', { path: '/' });
+  // this.route('authenticated', { path: '' }, () => {
+      
+  // })
 });
