@@ -6,6 +6,7 @@ import { match, not } from '@ember/object/computed';
 
 export default class LoginController extends Controller {
   @service session;
+  @service router;
   @tracked email;
   @tracked password;
   @tracked error;
@@ -22,7 +23,7 @@ export default class LoginController extends Controller {
     const password  = this.get('password');
     try {
       await this.session.authenticate('authenticator:oauth2', email, password);
-      this.transitionToRoute('/');
+      this.router.transitionTo('points');
     } catch(error) {
       console.log(error)
       this.error = 'Email or password invalid!';

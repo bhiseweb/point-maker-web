@@ -5,6 +5,6 @@ export default class ResetPasswordRoute extends Route {
   @service session;
 
   beforeModel() {
-    this.get('session').prohibitAuthentication('/');
+    this.get('session').prohibitAuthentication('points');
   }
 }

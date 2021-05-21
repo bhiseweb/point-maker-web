@@ -5,6 +5,6 @@ export default class LoginRoute extends Route {
   @service session;
 
   beforeModel(transition) {
-    this.get('session').prohibitAuthentication('/');
+    this.get('session').prohibitAuthentication('points');
   }
 }

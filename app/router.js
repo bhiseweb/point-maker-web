@@ -13,7 +13,7 @@ Router.map(function () {
   this.route('reset-password');
   this.route('forgot-password');
   // this.route('points', { path: '/map' });
-  this.route('points', { path: '/' });
+  this.route('points', { path: '/points' });
   // this.route('authenticated', { path: '' }, () => {
       
   // })

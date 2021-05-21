@@ -6,8 +6,6 @@ module.exports = function (environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
-    clientId: process.env.CLIENTID,
-    clientSecret: process.env.CLIENTSECRET,
     api: 'http://localhost:3000', //'https://aqueous-meadow-88620.herokuapp.com'
     namespace:'api/v1',
     EmberENV: {
@@ -48,6 +46,12 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
+    ENV['ember-simple-auth'] = {
+      routeAfterAuthentication: 'points'
+    }
   }
 
   if (environment === 'test') {
@@ -60,11 +64,16 @@ module.exports = function (environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
+    ENV['ember-simple-auth'] = {
+      routeAfterAuthentication: 'points'
+    }
   }
 
   if (environment === 'production') {
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
     // here you can enable a production-specific feature
   }
-
   return ENV;
 };
