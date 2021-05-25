@@ -23,7 +23,6 @@ export default class LoginController extends Controller {
     const password  = this.get('password');
     try {
       await this.session.authenticate('authenticator:oauth2', email, password);
-      this.router.transitionTo('points');
     } catch(error) {
       console.log(error)
       this.error = 'Email or password invalid!';

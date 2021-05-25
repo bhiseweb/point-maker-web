@@ -49,9 +49,6 @@ module.exports = function (environment) {
     ENV['ember-cli-mirage'] = {
       enabled: false
     };
-    ENV['ember-simple-auth'] = {
-      routeAfterAuthentication: 'points'
-    }
   }
 
   if (environment === 'test') {
@@ -64,9 +61,6 @@ module.exports = function (environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
-    ENV['ember-simple-auth'] = {
-      routeAfterAuthentication: 'points'
-    }
   }
 
   if (environment === 'production') {

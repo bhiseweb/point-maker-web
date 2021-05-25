@@ -5,6 +5,6 @@ export default class ForgotPasswordRoute extends Route {
   @service session;
 
   beforeModel() {
-    this.get('session').prohibitAuthentication('points');
+    this.get('session').prohibitAuthentication('index');
   }
 }

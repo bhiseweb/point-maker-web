@@ -57,6 +57,7 @@ export default class PointsController extends Controller {
     point.latitude =  dragedPoint.geometry.coordinates[1];
     await point.save();
   }
+  
   @action
   async loadMarkers(map) {
     this.map = map;
@@ -120,56 +121,55 @@ export default class PointsController extends Controller {
   }
 
   @action
-    async savePoint (event) {
-      event.preventDefault();
-      try {
-        let point = await this.store.createRecord('point', this.pointData);
-        await point.save();
-        this.updateMarkers();
-        this.open = false;
-      } catch(error) {
-        console.log(error)
-      }
-    }
-
-  @action
-    editPoint (point) {
-      this.open = true
-      const { id, name, longitude, latitude } = point;
-      this.coordinates = { lng: longitude, lat: latitude };
-      this.pointData = { id, name, longitude, latitude };
-    }
-
-  @action
-    async updatePoint () {
-      event.preventDefault();
-      try {
-        let point = await this.store.findRecord('point', this.pointData.id);
-        point.name = this.pointData.name;
-        await point.save();
-        this.updateMarkers();
-        this.open = false;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-  @action
-    async deletePoint (id) {
-      event.preventDefault();
-      try {
-        let point = await this.store.findRecord('point', id, { reload: true });
-        await point.destroyRecord();
-        this.updateMarkers();
-      } catch(error) {
-        console.log(error);
-      }
-    }
-  @action
-    async searchPoint(event) {
-      this.searchText = event.target.value
-      this.allPoints = await this.store.query('point', { name: this.searchText });
+  async savePoint (event) {
+    event.preventDefault();
+    try {
+      let point = await this.store.createRecord('point', this.pointData);
+      await point.save();
       this.updateMarkers();
+      this.open = false;
+    } catch(error) {
+      console.log(error)
     }
+  }
 
+  @action
+  editPoint (point) {
+    this.open = true
+    const { id, name, longitude, latitude } = point;
+    this.coordinates = { lng: longitude, lat: latitude };
+    this.pointData = { id, name, longitude, latitude };
+  }
+
+  @action
+  async updatePoint () {
+    event.preventDefault();
+    try {
+      let point = await this.store.findRecord('point', this.pointData.id);
+      point.name = this.pointData.name;
+      await point.save();
+      this.updateMarkers();
+      this.open = false;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  @action
+  async deletePoint (id) {
+    event.preventDefault();
+    try {
+      let point = await this.store.findRecord('point', id, { reload: true });
+      await point.destroyRecord();
+      this.updateMarkers();
+    } catch(error) {
+      console.log(error);
+    }
+  }
+  @action
+  async searchPoint(event) {
+    this.searchText = event.target.value
+    this.allPoints = await this.store.query('point', { name: this.searchText });
+    this.updateMarkers();
+  }
 }

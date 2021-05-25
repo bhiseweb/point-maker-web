@@ -5,6 +5,6 @@ export default class RegisterRoute extends Route {
   @service session;
 
   beforeModel() {
-    this.get('session').prohibitAuthentication('points');
+    this.get('session').prohibitAuthentication('index');
   }
 }

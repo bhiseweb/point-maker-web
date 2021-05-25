@@ -22,8 +22,7 @@ module('Acceptance | login', function(hooks) {
     
     await fillIn(emailElement, 'john@yopmail.com')
     await fillIn(passwordElement, 'john123');
-    // debugger
     await click(this.element.querySelector('button'));
-    assert.equal(currentURL(), '/points', 'Redirected to home page');
+    assert.equal(currentURL(), '/', 'Redirected to home page');
   });
 });
