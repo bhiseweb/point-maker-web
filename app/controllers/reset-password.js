@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
+import fetch from 'fetch';
 import config from 'point-maker-web/config/environment';
 
 export default class ResetPasswordController extends Controller {
@@ -26,24 +27,31 @@ export default class ResetPasswordController extends Controller {
       const postData = {user:{reset_password_token: this.get('reset_password_token'), password: this.get('password'), password_confirmation: this.get('password_confirmation')}};
       const path = `${config.api}/${config.namespace}/users/password`;
       
-      try {
-        await window.$.ajax({
-          url: path,
-          type: 'PATCH',
-          data: postData,
-          beforeSend: function(xhr){xhr.setRequestHeader('Accept', 'application/json');}
-        })
-        this.success = 'Password reset successfully!';
-        this.error = '';
-      } catch(error) {
-        const key = Object.keys(error.responseJSON.errors)[0];
-        const value = error.responseJSON.errors[key];
-        this.error = `${key.split('_').join(' ')} ${value}`;
-      }
+      return fetch(path,{
+        method: 'PATCH',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+      }).then((response) => {
+        if(response.status === 204) {
+          this.error = '';
+          this.success = 'Password reset successfully!';
+        } else {
+          return response.json();
+        }
+      }).then((json) => {
+        if (json?.errors) {
+          const key = Object.keys(json.errors)[0];
+          const value = json.errors[key];
+          this.error = `${key.split('_').join(' ')} ${value}`;
+        }
+      }).catch(function(ex) {
+        console.log('parsing failed', ex)
+      });
     } else {
       this.error = 'Password and confirm password does not match!';
     }
-
   }
-
 }
