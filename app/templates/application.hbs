@@ -1,7 +1,12 @@
 {{page-title "PointMakerWeb"}}
-
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
-
-{{outlet}}
+<div class="container">
+  <div class="menu">
+    {{#if this.session.isAuthenticated}}
+      <a href="" class="text-right" {{on "click" this.invalidateSession}}>Logout</a>
+    {{else}}
+      {{#link-to 'login'}}Login{{/link-to}}
+      {{#link-to 'register'}}Register{{/link-to}}
+    {{/if}}
+  </div>
+  {{outlet}}
+</div>

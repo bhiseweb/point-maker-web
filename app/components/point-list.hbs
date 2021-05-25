@@ -1,0 +1,5 @@
+<div class="row mt-3" ...attributes>
+  {{#each @points as |point|}}
+    <Point @point={{point}} @editPoint={{@editPoint}} @deletePoint={{@deletePoint}} />
+  {{/each}}
+</div>

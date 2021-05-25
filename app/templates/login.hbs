@@ -1,0 +1,15 @@
+{{page-title "Login"}}
+<div class="mt-5">
+  <h3>Signin</h3>
+  <form {{on "submit" this.authenticate}}>
+    <label class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" placeholder="Enter Email" value={{this.email}} {{on "input" this.onChange}}>
+    <label class="form-label mt-2">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Enter Password" value={{this.password}} {{on "input" this.onChange}}>
+    {{#link-to 'forgot-password'}}Forgot password{{/link-to}}<br/>
+    <button class="btn btn-primary mt-3" type="submit">Login</button>
+    {{#if this.error}}
+      <p class="text-danger mt-2">{{this.error}}</p>
+    {{/if}}
+  </form>
+</div>

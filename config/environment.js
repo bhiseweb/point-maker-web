@@ -6,6 +6,8 @@ module.exports = function (environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
+    api: 'http://localhost:3000', //'https://aqueous-meadow-88620.herokuapp.com'
+    namespace:'api/v1',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -21,6 +23,21 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+
+    'mapbox-gl': {
+      accessToken: 'pk.eyJ1IjoibGVlbmEtd2ViIiwiYSI6ImNrb2k4dTNzajB1MWsyb25zcDQ5MDh5ZTMifQ.KXpvP9jclC3Ry6oa4vy7OA',
+      map: {
+        style: 'mapbox://styles/mapbox/basic-v9',
+        zoom: 5,
+        center: [ -96.7969879, 32.7766642 ]
+      },
+      marker: {
+        offset: [ -1, -1 ]
+      },
+
+    }
+
+
   };
 
   if (environment === 'development') {
@@ -29,6 +46,9 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
   }
 
   if (environment === 'test') {
@@ -44,8 +64,10 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
     // here you can enable a production-specific feature
   }
-
   return ENV;
 };
